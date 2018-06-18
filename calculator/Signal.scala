@@ -10,6 +10,8 @@ class Signal[T](expr: => T) {
   private var observed: List[Signal[_]] = Nil
   update(expr)
 
+  override def toString: String = "Signal(" + myValue.toString + ")"
+
   protected def computeValue(): Unit = {
     for (sig <- observed)
       sig.observers -= this

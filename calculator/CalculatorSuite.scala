@@ -9,6 +9,8 @@ import org.scalatest._
 
 import TweetLength.MaxTweetLength
 
+import Calculator._
+
 @RunWith(classOf[JUnitRunner])
 class CalculatorSuite extends FunSuite with ShouldMatchers {
 
@@ -62,6 +64,13 @@ class CalculatorSuite extends FunSuite with ShouldMatchers {
     assert(resultRed1() == "red")
     val resultRed2 = TweetLength.colorForRemainingCharsCount(Var(-5))
     assert(resultRed2() == "red")
+  }
+
+  test("calculator test") {
+    val in = Map("a" -> Signal(Ref("b").asInstanceOf[Expr]), "b" -> Signal(Ref("c").asInstanceOf[Expr]), "c" -> Signal(Ref("a").asInstanceOf[Expr]))
+    val out = Map("a" -> Double.NaN, "b" -> Double.NaN, "c" -> Double.NaN)
+    println(computeValues(in))
+    for ((k, v) <- computeValues(in)) assert(v().isNaN)
   }
 
 }
